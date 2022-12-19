@@ -10,7 +10,42 @@ Ajout de : "strictPropertyInitialization": false,
 > ng generate module public --routing --module core
 > ng generate module protected --routing --module core
 
+> ng generate module public/home --module public
+> ng generate module public/register --module public
+> ng generate module public/login --module public 
 
+> ng generate module protected/dashboard --module protected
+> ng generate module protected/parameters --module protected 
+> ng generate module protected/planning --module protected
+> ng generate module protected/profil --module protected
+> ng generate module protected/workday --module protected
+
+
+## Réorganiser les importations de ses modules
+Imaginons que plus tard, nous ajouterons des formulaires dans plusieurs modules différents. Nous serons obligés d’importer le module natif ReactiveFormsModule à chaque fois. Mais grâce à la factorisation que nous allons faire, il suffira d’importer une seule fois le ReactiveFormsModule dans le SharedModule, et il sera directement disponible pour tous les autres modules (enfin, tous les autres modules qui importent le SharedModule).
+
+Remplacer
+import { CommonModule } from '@angular/common';
+par 
+import { SharedModule } from 'src/app/shared/shared.module';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##################################################################
 
 # AwesomeList
 
