@@ -1,3 +1,11 @@
+# Etapes
+
+> ng new awesome-list --prefix=al --style=scss --routing
+
+Dans tsconfig.json
+Ajout de : "strictPropertyInitialization": false,
+
+
 # AwesomeList
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.2.
