@@ -43,6 +43,13 @@ ajouter dans .gitignore : /src/environments/**
 Puis : 
 > git rm --cached src/environments/** 
 
+## Ajouter les modèles
+
+ng generate class shared/models/user --skip-tests
+ng generate class shared/models/workday --skip-tests
+ng generate class shared/models/task --skip-tests
+
+
 
 
 
