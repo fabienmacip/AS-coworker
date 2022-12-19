@@ -49,6 +49,22 @@ ng generate class shared/models/user --skip-tests
 ng generate class shared/models/workday --skip-tests
 ng generate class shared/models/task --skip-tests
 
+## Composants de la HOME Page
+
+// Composant de la page Home
+ng generate component public/home/home --module home --inline-style --skip-tests
+
+// Composant dumb de la bannière
+ng generate component public/home/home-banner --module home --skip-tests
+
+// Composant dumb de l'affichage d'une carte de fonctionnalité
+ng generate component public/home/home-feature-card --module home --inline-style --skip-tests
+
+// Composant smart des fonctionnalités
+ng generate component public/home/home-features --module home --inline-style
+--skip-tests
+
+
 
 
 
