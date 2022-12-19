@@ -34,6 +34,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 > npm install bootstrap --save
 > npm install bootswatch --save
 
+> npm install ngx-bootstrap --save
+
 
 
 
