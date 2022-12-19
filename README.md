@@ -29,7 +29,10 @@ import { CommonModule } from '@angular/common';
 par 
 import { SharedModule } from 'src/app/shared/shared.module';
 
+## CSS
 
+> npm install bootstrap --save
+> npm install bootswatch --save
 
 
 

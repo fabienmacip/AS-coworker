@@ -6,7 +6,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 @NgModule({
   declarations: [],
   imports: [
-    PlanningModule
+    SharedModule
   ]
 })
 export class PlanningModule { }
