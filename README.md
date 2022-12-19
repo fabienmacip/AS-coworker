@@ -36,6 +36,12 @@ import { SharedModule } from 'src/app/shared/shared.module';
 
 > npm install ngx-bootstrap --save
 
+## Firebase
+
+Après avoir copié les clés de Firebase dans environment.ts, 
+ajouter dans .gitignore : /src/environments/**
+Puis : 
+> git rm --cached src/environments/** 
 
 
 
