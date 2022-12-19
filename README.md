@@ -5,6 +5,12 @@
 Dans tsconfig.json
 Ajout de : "strictPropertyInitialization": false,
 
+> ng generate module core --module app
+> ng generate module shared
+> ng generate module public --routing --module core
+> ng generate module protected --routing --module core
+
+
 
 # AwesomeList
 
