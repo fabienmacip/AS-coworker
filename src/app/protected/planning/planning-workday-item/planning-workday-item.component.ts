@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'al-planning-workday-item',
@@ -6,13 +6,20 @@ import { Component, Input, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class PlanningWorkdayItemComponent implements OnInit {
+export class PlanningWorkdayItemComponent {
 
-  @Input() workday: { dueDate: string, doneTasks: number, remainingTasks: number };
+  currentWorkday: { dueDate: string, doneTasks: number, remainingTasks: number };
 
-  constructor() { }
+  //@Input() workday: { dueDate: string, doneTasks: number, remainingTasks: number };
+  @Input()
+  set workday(workday: { dueDate: string, doneTasks: number, remainingTasks: number }) {
+    this.currentWorkday = workday || {};
+    
+    if ('Lundi' === workday.dueDate) {
+     this.currentWorkday.dueDate += ' (Aujourd\'hui)';
+    }
+   }
 
-  ngOnInit(): void {
-  }
+   get workday() { return this.currentWorkday; }
 
 }
