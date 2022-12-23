@@ -80,7 +80,28 @@ ng generate component protected/planning/planning-workday-list --module=planning
 
 ng generate component protected/planning/planning-workday-item --module=planning --inline-style --skip-tests
 
+## Ajout des autres composants pour pouvoir ensuite définir les routes
 
+### Composant de page : Login
+ng generate component public/login/login --module login --inline-style --skip-tests
+
+### Composant de page : Register
+ng generate component public/register/register --module register --inline-style --skip-tests
+
+### Composant de page : Dashboard
+ng generate component protected/dashboard/dashboard --module dashboard --inline-style --skip-tests
+
+### Composant de page : Workday
+ng generate component protected/workday/workday --module workday --inline-style --skip-tests
+
+### Composant de page : Profil
+ng generate component protected/profil/profil --module profil --inline-style --skip-tests
+
+### Composant de page : Parameters
+ng generate component protected/parameters/parameters --module parameters --inline-style --skip-tests
+
+### Composant de page : PageNotFound
+ng generate component core/components/page-not-found --module core --export true --inline-style --skip-tests
 
 
 
