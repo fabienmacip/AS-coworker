@@ -64,7 +64,9 @@ ng generate component public/home/home-feature-card --module home --inline-style
 ng generate component public/home/home-features --module home --inline-style
 --skip-tests
 
+## NavBar
 
+ng generate component core/components/navbar --module=core --skip-tests --export=true
 
 
 
