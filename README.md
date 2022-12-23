@@ -68,7 +68,17 @@ ng generate component public/home/home-features --module home --inline-style
 
 ng generate component core/components/navbar --module=core --skip-tests --export=true
 
+## Footer
 
+ng generate component core/components/footer --module=core --inline-style --skip-tests --export=true
+
+## Page Planning
+
+ng generate component protected/planning/planning --module=planning --inline-style --skip-tests
+
+ng generate component protected/planning/planning-workday-list --module=planning --inline-style --skip-tests
+
+ng generate component protected/planning/planning-workday-item --module=planning --inline-style --skip-tests
 
 
 
