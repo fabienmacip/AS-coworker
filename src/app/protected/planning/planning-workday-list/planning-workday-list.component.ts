@@ -19,7 +19,8 @@ export class PlanningWorkdayListComponent implements OnInit {
     this.workdays$ = of([
       { dueDate: 'Lundi', doneTasks: 1, remainingTasks: 3 },
       { dueDate: 'Mardi', doneTasks: 0, remainingTasks: 2 },
-      { dueDate: 'Mercredi', doneTasks: 0, remainingTasks: 1 }
+      { dueDate: 'Mercredi', doneTasks: 0, remainingTasks: 1 },
+      { dueDate: 'Jeudi', doneTasks: 3, remainingTasks: 0 }
      ]).pipe(delay(1000));
   }
 
