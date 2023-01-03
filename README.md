@@ -109,6 +109,12 @@ ng generate component shared/components/sidenav --module shared --export true -â
 
 ng generate component protected/protected --module protected --flat true --skip-tests
 
+## LAZY LOADING
+
+ng generate public/login/login-routing --module=public --flat
+
+
+
 
 
 

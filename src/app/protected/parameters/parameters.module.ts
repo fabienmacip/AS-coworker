@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ParametersRoutingModule } from './parameters-routing.module';
+
 import { ParametersComponent } from './parameters/parameters.component';
 
 
@@ -9,7 +11,8 @@ import { ParametersComponent } from './parameters/parameters.component';
     ParametersComponent
   ],
   imports: [
-    SharedModule
+    SharedModule,
+    ParametersRoutingModule
   ]
 })
 export class ParametersModule { }
