@@ -113,9 +113,11 @@ ng generate component protected/protected --module protected --flat true --skip-
 
 ng generate public/login/login-routing --module=public --flat
 
+## formulaires inscription et register
 
+ng generate component public/register/register-form --module register --inline-style --skip-tests
 
-
+ng generate component public/login/login-form --module login --inline-style --skip-tests
 
 
 
