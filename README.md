@@ -103,9 +103,11 @@ ng generate component protected/parameters/parameters --module parameters --inli
 ### Composant de page : PageNotFound
 ng generate component core/components/page-not-found --module core --export true --inline-style --skip-tests
 
+### Composant menu latéral
 
+ng generate component shared/components/sidenav --module shared --export true -–skip-tests
 
-
+ng generate component protected/protected --module protected --flat true --skip-tests
 
 
 
