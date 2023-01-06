@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormArray, FormBuilder, FormControl } from '@angular/forms';
+import { FormGroup, FormArray, FormBuilder, FormControl, FormGroupDirective } from '@angular/forms';
 
 @Component({
   selector: 'al-workday-form',
@@ -17,10 +17,10 @@ export class WorkdayFormComponent implements OnInit {
     this.workdayForm = this.createWorkdayForm();
 
     // Temporaire: ajout en dur d'une nouvelle task
-    const taskGroup: FormGroup = this.fb.group({
+    /* const taskGroup: FormGroup = this.fb.group({
       'title': 'Ecrire un article sur awesome-angular.com !'
     });
-    this.tasks.push(taskGroup);
+    this.tasks.push(taskGroup); */
 
   }
 
