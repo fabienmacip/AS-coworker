@@ -119,8 +119,26 @@ ng generate component public/register/register-form --module register --inline-s
 
 ng generate component public/login/login-form --module login --inline-style --skip-tests
 
+## Formulaire complexe - WORKDAY
 
+### Composant SMART
+ng generate component protected/workday/workday-form --module workday --inline-style --skip-tests
 
+### Composants DUMB
+// Composant pour le champ date
+ ng generate component protected/workday/workday-form-date --module workday --inline-style --skip-tests
+
+ // Composant représentant l’ensemble des taches prévues.
+ ng generate component protected/workday/workday-form-tasks --module workday --inline-style --skip-tests
+
+ // Composant pour l’édition et la suppression d’une tâche individuelle, avec un fichier de style !
+ ng generate component protected/workday/workday-form-tasks-item --module workday --skip-tests
+
+ // Composant pour l’ajout d’une nouvelle tâche.
+ ng generate component protected/workday/workday-form-tasks-add --module workday --inline-style --skip-tests
+
+ // Composant pour le champ dédié à la prise de notes.
+ ng generate component protected/workday/workday-form-notes --module workday --inline-style --skip-tests
 
 ##################################################################
 
