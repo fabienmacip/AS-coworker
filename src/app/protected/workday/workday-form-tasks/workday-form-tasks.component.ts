@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'al-workday-form-tasks',
@@ -22,10 +22,26 @@ export class WorkdayFormTasksComponent implements OnInit {
     this.taskControlList = this.tasks.controls as FormGroup[];
   }
 
+createTaskForm(): FormGroup{
+  const taskForm: FormGroup = this.fb.group({
+    'title': ['',[
+      Validators.required,
+      Validators.minLength(1),
+      Validators.maxLength(150)
+    ]],
+    'todo': [1,[
+      Validators.required,
+      Validators.min(1),
+      Validators.max(5)
+    ]],
+    'done': 0
+  });
+
+  return taskForm;
+}
+
   onAddedTask() {
-    const taskGroup: FormGroup = this.fb.group({
-     'title': ''
-    });
+    const taskGroup: FormGroup = this.createTaskForm();
     this.tasks.push(taskGroup);
   }
 
