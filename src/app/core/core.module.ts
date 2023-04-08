@@ -11,6 +11,7 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 import { LoaderComponent } from './components/loader/loader.component';
 import { ToastrComponent } from './components/toastr/toastr.component';
 
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ToastrComponent } from './components/toastr/toastr.component';
   ],
   imports: [
     CommonModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     PublicModule,
     ProtectedModule,

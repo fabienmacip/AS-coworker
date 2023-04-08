@@ -1,6 +1,8 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { User } from 'src/app/shared/models/user';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,9 @@ export class AuthService {
   private user: BehaviorSubject<User|null> = new BehaviorSubject<User|null>(null);
   readonly user$: Observable<User|null> = this.user.asObservable();
 
-  constructor() { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
   login(email: string, password: string): Observable<User|null> {
     // 1. A faire : Faire un appel au backend.
@@ -25,17 +29,29 @@ export class AuthService {
    }
 
    register(name: string, email: string, password: string): Observable<User|null> {
-    return of(new User());
+/*     const API_KEY: string = 'AIzaSyCgsUWqDIX7G3pWWg1wv8svM5267b3TfMo';
+    const API_AUTH_BASEURL: string = `https://www.googleapis.com/identitytoolkit/v3/relyingparty`;
+ */
+    const url =
+      `${environment.firebase.auth.baseURL}/signupNewUser?key=
+      ${environment.firebase.apiKey}`;
+    /* : string = `${API_AUTH_BASEURL}/signupNewUser?key=${API_KEY}`; */
+
+    const data = {
+      email: email,
+      password: password,
+      returnSecureToken: true
+    };
+
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    }
+
+    return this.http.post<User>(url, data, httpOptions);
    }
 
    logout(): void {
     //return of(null);
    }
 
-   /* submit() {
-    this.authService.login('John', 'Doe').subscribe(user => {
-     this.user = user;
-     // Effectuer une autre action, avec l’utilisateur venant de s’inscrire.
-    });
-   } */
 }
