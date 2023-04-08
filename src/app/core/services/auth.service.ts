@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 import { User } from 'src/app/shared/models/user';
 import { environment } from 'src/environments/environment';
 import { UsersService } from './users.service';
@@ -60,7 +61,8 @@ export class AuthService {
         });
 
         return this.usersService.save(user, jwt);
-      }));
+      }),
+      tap(user => this.user.next(user)));
      }
 
    logout(): void {
