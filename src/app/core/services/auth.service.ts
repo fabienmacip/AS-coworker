@@ -1,11 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { switchMap, tap, catchError } from 'rxjs/operators';
+import { switchMap, tap, catchError, finalize } from 'rxjs/operators';
 import { User } from 'src/app/shared/models/user';
 import { environment } from 'src/environments/environment';
 import { UsersService } from './users.service';
 import { ErrorService } from './error.service';
+import { LoaderService } from './loader.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private usersService: UsersService,
-    private errorService: ErrorService
+    private errorService: ErrorService,
+    private loaderService: LoaderService
   ) { }
 
   login(email: string, password: string): Observable<User|null> {
@@ -52,6 +54,8 @@ export class AuthService {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     }
 
+    this.loaderService.setLoading(true);
+
     //return this.http.post<User>(url, data, httpOptions);
     return this.http.post(url, data, httpOptions).pipe(
       switchMap((data: any) => {
@@ -65,7 +69,8 @@ export class AuthService {
         return this.usersService.save(user, jwt);
       }),
       tap(user => this.user.next(user)),
-      catchError(error => this.errorService.handleError(error))
+      catchError(error => this.errorService.handleError(error)),
+      finalize(() => this.loaderService.setLoading(false))
       );
      }
 
