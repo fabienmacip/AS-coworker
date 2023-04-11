@@ -94,4 +94,26 @@ export class UsersService {
    })
   );
  }
+
+ update(user: User): Observable<User|null> {
+  const url =
+   `${environment.firebase.firestore.baseURL}/users/${user.id}?key=
+    ${environment.firebase.apiKey}&currentDocument.exists=true`;
+
+  const data = this.getDataForFirestore(user);
+
+  const httpOptions = {
+    headers: new HttpHeaders({
+     'Content-Type':  'application/json',
+     'Authorization': `Bearer ${localStorage.getItem('token')}`
+    })
+   };
+
+   return this.http.patch(url, data, httpOptions).pipe(
+    switchMap((data: any) => {
+     return of(this.getUserFromFirestore(data.fields));
+    })
+   );
+
+ }
 }
