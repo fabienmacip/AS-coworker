@@ -43,6 +43,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.layoutService.toggleSidenav();
   }
 
+  logout() {
+    this.authService.logout();
+  }
+
   ngOnDestroy(): void {
       this.subscription.unsubscribe();
   }

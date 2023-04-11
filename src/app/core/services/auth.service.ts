@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { UsersService } from './users.service';
 import { ErrorService } from './error.service';
 import { LoaderService } from './loader.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,8 @@ export class AuthService {
     private http: HttpClient,
     private usersService: UsersService,
     private errorService: ErrorService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private router: Router
   ) { }
 
   login(email: string, password: string): Observable<User|null> {
@@ -96,7 +98,8 @@ export class AuthService {
      }
 
    logout(): void {
-    //return of(null);
+    this.user.next(null);
+    this.router.navigate(['/login']);
    }
 
 }
