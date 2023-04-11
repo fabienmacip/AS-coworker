@@ -25,6 +25,20 @@ export class AuthService {
     private router: Router
   ) { }
 
+  private saveAuthData(userId: string, token: string) {
+    const now = new Date();
+    const expirationDate = (now.getTime() + 3600 * 1000).toString();
+    localStorage.setItem('expirationDate', expirationDate);
+    localStorage.setItem('token', token);
+    localStorage.setItem('userId', userId);
+  }
+
+  private logoutTimer(expirationTime: number): void {
+    of(true).pipe(
+      delay(expirationTime * 1000)
+    ).subscribe(_ => this.logout());
+   }
+
   login(email: string, password: string): Observable<User|null> {
 
     const url = `${environment.firebase.auth.baseURL}/verifyPassword?key=${environment.firebase.apiKey}`;
@@ -45,6 +59,7 @@ export class AuthService {
       switchMap((data: any) => {
         const userId: string = data.localId;
         const jwt: string = data.idToken;
+        this.saveAuthData(userId, jwt);
         return this.usersService.get(userId, jwt);
       }),
       tap(user => this.user.next(user)),
@@ -57,12 +72,6 @@ export class AuthService {
     // Simple code pour calmer votre IDE.
     // Retourne un Observable contenant un utilisateur,
     // grâce à l’opérateur of de RxJS.
-   }
-
-   private logoutTimer(expirationTime: number): void {
-    of(true).pipe(
-      delay(expirationTime * 1000)
-    ).subscribe(_ => this.logout());
    }
 
    register(name: string, email: string, password: string): Observable<User|null> {
@@ -95,7 +104,7 @@ export class AuthService {
           id: data.localId,
           name: name
         });
-
+        this.saveAuthData(data.localId, jwt);
         return this.usersService.save(user, jwt);
       }),
       tap(user => this.user.next(user)),
@@ -105,9 +114,18 @@ export class AuthService {
       );
      }
 
-   logout(): void {
-    this.user.next(null);
-    this.router.navigate(['/login']);
-   }
+
+     autoLogin(user: User) {
+      this.user.next(user);
+      this.router.navigate(['app/dashboard']);
+     }
+
+    logout(): void {
+      localStorage.removeItem('expirationDate');
+      localStorage.removeItem('token');
+      localStorage.removeItem('userId');
+      this.user.next(null);
+      this.router.navigate(['/login']);
+    }
 
 }
