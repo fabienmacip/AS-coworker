@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { switchMap, tap, catchError, finalize } from 'rxjs/operators';
+import { switchMap, tap, catchError, finalize, delay } from 'rxjs/operators';
 import { User } from 'src/app/shared/models/user';
 import { environment } from 'src/environments/environment';
 import { UsersService } from './users.service';
@@ -48,6 +48,7 @@ export class AuthService {
         return this.usersService.get(userId, jwt);
       }),
       tap(user => this.user.next(user)),
+      tap(_ => this.logoutTimer(3600)),
       catchError(error => this.errorService.handleError(error)),
       finalize(() => this.loaderService.setLoading(false))
     );
@@ -56,6 +57,12 @@ export class AuthService {
     // Simple code pour calmer votre IDE.
     // Retourne un Observable contenant un utilisateur,
     // grâce à l’opérateur of de RxJS.
+   }
+
+   private logoutTimer(expirationTime: number): void {
+    of(true).pipe(
+      delay(expirationTime * 1000)
+    ).subscribe(_ => this.logout());
    }
 
    register(name: string, email: string, password: string): Observable<User|null> {
@@ -92,6 +99,7 @@ export class AuthService {
         return this.usersService.save(user, jwt);
       }),
       tap(user => this.user.next(user)),
+      tap(_ => this.logoutTimer(3600)),
       catchError(error => this.errorService.handleError(error)),
       finalize(() => this.loaderService.setLoading(false))
       );
