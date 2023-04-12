@@ -14,6 +14,7 @@ import { Workday } from 'src/app/shared/models/workday';
 })
 export class WorkdayFormComponent implements OnInit {
 
+  workdayId: string;
   workdayForm: FormGroup;
 
   constructor(
@@ -24,6 +25,7 @@ export class WorkdayFormComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    this.workdayId = '';
     this.workdayForm = this.createWorkdayForm();
 
     // Temporaire: ajout en dur d'une nouvelle task
@@ -70,6 +72,7 @@ export class WorkdayFormComponent implements OnInit {
       this.resetWorkdayForm(); // On réinitialise le formulaire d'une journée de travail.
       if(!workday) return; // Si cette journée de travail n'existe pas sur le Firestore, alors on s'arrête là.
 
+      this.workdayId = workday.id as string;
       this.notes.setValue(workday.notes);
       workday.tasks.forEach(task => {
        const taskField: FormGroup = this.fb.group({
@@ -87,16 +90,29 @@ export class WorkdayFormComponent implements OnInit {
   submit(): void {
    const user: User|null = this.authService.currentUser;
 
-   if(user) {
-    const workday: Workday = new Workday({
-      ...this.workdayForm.value,
-      userId: user.id
-    });
-    this.workdaysService.save(workday).subscribe({
+   if(!(user && user.id)) {
+    return;
+   }
+
+    // Update workday
+    if(this.workdayId) {
+      const workdayToUpdate: Workday = new Workday({ ...this.workdayForm.value, userId: user.id, id: this.workdayId });
+
+      this.workdaysService.update(workdayToUpdate).subscribe({
+      next: () => this.router.navigate(['/app/planning']),
+      error: () => this.workdayForm.reset()
+      });
+      return;
+    }
+
+    // Create workday
+    const workdayToCreate = new Workday({ ...this.workdayForm.value, userId: user.id });
+    this.workdaysService.save(workdayToCreate).subscribe({
       next: () => this.router.navigate(['/app/planning']),
       error: () => this.workdayForm.reset()
     });
    }
-  }
 
 }
+
+
