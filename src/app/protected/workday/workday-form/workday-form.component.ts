@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder, FormControl, FormGroupDirective, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { WorkdaysService } from 'src/app/core/services/workdays.service';
 import { User } from 'src/app/shared/models/user';
@@ -20,21 +20,21 @@ export class WorkdayFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private route: ActivatedRoute,
     private workdaysService: WorkdaysService,
     private authService: AuthService
     ) { }
 
-  ngOnInit(): void {
-    this.workdayId = '';
-    this.workdayForm = this.createWorkdayForm();
-
-    // Temporaire: ajout en dur d'une nouvelle task
-    /* const taskGroup: FormGroup = this.fb.group({
-      'title': 'Ecrire un article sur awesome-angular.com !'
-    });
-    this.tasks.push(taskGroup); */
-
-  }
+    ngOnInit() {
+      this.route.queryParams.subscribe(params => {
+       this.workdayId = '';
+       this.workdayForm = this.createWorkdayForm();
+       if(params['date']) {
+        const date: Date = new Date(+params['date'] * 1000); // On multiplie par 1000 le timestamp reçu pour l'adapter au format des timestamp de JavaScript.
+        this.dueDate.setValue(date);
+       }
+      });
+     }
 
   get dueDate() { return this.workdayForm.get('dueDate') as FormControl; }
   get notes() { return this.workdayForm.get('notes') as FormControl; }
