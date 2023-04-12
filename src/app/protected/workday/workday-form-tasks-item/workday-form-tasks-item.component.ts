@@ -23,4 +23,8 @@ export class WorkdayFormTasksItemComponent implements OnInit {
     this.removedTask.emit(index);
   }
 
+  selectTodo(todo: number) {
+    this.task.patchValue({todo: todo});
+  }
+
 }
