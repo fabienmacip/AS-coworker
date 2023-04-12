@@ -1,19 +1,9 @@
 <div class="card border-light mt-3">
   <div class="card-header">
-    {{ dueDate }}
-    <i class="material-icons md-grey float-end"
-    (click)="removeWorkday(dueDate)">close</i>
+    {{ workday.displayDate }}
+    <i class="material-icons md-grey float-end" (click)="removeWorkday(workday)">close</i>
   </div>
   <div class="card-body">
-   <p>Tâches restantes : <strong>{{ remainingTasks }}</strong></p>
-   <p>Tâches effectuées: <strong>{{ doneTasks }}</strong></p>
+    <p>{{ workday.tasks | json }}</p>
   </div>
- </div>
-
-<!-- <div class="card border-light mt-3">
-  <div class="card-header">{{ workday.dueDate }}</div>
-  <div class="card-body">
-   <p>Tâches restantes : <strong>{{ workday.remainingTasks }}</strong></p>
-   <p>Tâches effectuées : <strong>{{ workday.doneTasks }}</strong></p>
-   </div>
- </div> -->
+</div>

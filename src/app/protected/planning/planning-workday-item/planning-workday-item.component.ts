@@ -1,4 +1,5 @@
-import { Component, Input, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
+import { Workday } from 'src/app/shared/models/workday';
 
 
 @Component({
@@ -7,22 +8,28 @@ import { Component, Input, OnChanges, SimpleChanges, EventEmitter, Output } from
   styles: [
   ]
 })
-export class PlanningWorkdayItemComponent implements OnChanges {
+export class PlanningWorkdayItemComponent implements OnInit {
 
-  @Input() dueDate: string;
+/*   @Input() dueDate: string;
   @Input() doneTasks: number | string;
   @Input() remainingTasks: number | string;
-   
-  @Output() workdayRemoved = new EventEmitter<string>();
+ */
+  @Input() workday: Workday;
 
-  ngOnChanges(changes: SimpleChanges) {
+  @Output() workdayRemoved = new EventEmitter<Workday>();
+
+  ngOnInit(): void {
+
+  }
+
+/*   ngOnChanges(changes: SimpleChanges) {
    for (const propName in changes) {
     this.update(propName, changes[propName].currentValue);
    }
   }
-   
-  update(propName: string, propValue: string|number) {
-   
+ */
+/*   update(propName: string, propValue: string|number) {
+
    switch (propName) {
     case 'dueDate': {
      if ('Lundi' === propValue) { this.dueDate += ' (Aujourd\'hui)'; }
@@ -33,9 +40,9 @@ export class PlanningWorkdayItemComponent implements OnChanges {
      break;
     }
     case 'remainingTasks': {
-     if (0 === propValue) { 
+     if (0 === propValue) {
       this.remainingTasks = 'Journée de travail terminée !';
-     } 
+     }
      break;
     }
     default: {
@@ -43,20 +50,20 @@ export class PlanningWorkdayItemComponent implements OnChanges {
     }
    }
   }
-
-  removeWorkday(dueDate: string) {
-    this.workdayRemoved.emit(dueDate);
+ */
+  removeWorkday(workday: Workday) {
+    this.workdayRemoved.emit(workday);
    }
 
   //@Input() workday: { dueDate: string, doneTasks: number, remainingTasks: number };
-     
-  /* 
+
+  /*
   currentWorkday: { dueDate: string, doneTasks: number, remainingTasks: number };
-  
+
   @Input()
   set workday(workday: { dueDate: string, doneTasks: number, remainingTasks: number }) {
     this.currentWorkday = workday || {};
-    
+
     if ('Lundi' === workday.dueDate) {
      this.currentWorkday.dueDate += ' (Aujourd\'hui)';
     }
