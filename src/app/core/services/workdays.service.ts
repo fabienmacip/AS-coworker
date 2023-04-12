@@ -133,6 +133,56 @@ export class WorkdaysService {
     });
   }
 
+  private getWorkdayByUserQuery(userId: string): any {
+    return {
+     'structuredQuery': {
+      'from': [{
+       'collectionId': 'workdays'
+      }],
+      'where': {
+       'fieldFilter': {
+        'field': { 'fieldPath': 'userId' },
+        'op': 'EQUAL',
+        'value': { 'stringValue': userId }
+       }
+      },
+      "orderBy": [{
+       "field": {
+        "fieldPath": "dueDate"
+       },
+       "direction": "DESCENDING"
+      }]
+     }
+    };
+   }
+
+  getWorkdayByUser(userId: string): any {
+    const url = `${environment.firebase.firestore.baseURL}:runQuery?key=${environment.firebase.apiKey}`;
+    const data = this.getWorkdayByUserQuery(userId);
+    const jwt: string = localStorage.getItem('token')!;
+
+    const httpOptions = {
+     headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Authorization': `Bearer ${jwt}`
+     })
+    };
+
+    return this.http.post(url, data, httpOptions).pipe(
+     switchMap((workdaysData: any) => {
+      const workdays: Workday[] = [];
+      workdaysData.forEach((data: any) => {
+       if (data && data.document) {
+        const workday: Workday = this.getWorkdayFromFirestore(data.document.name, data.document.fields);
+        workdays.push(workday);
+       }
+      })
+      return of(workdays);
+     }),
+     catchError(error => this.errorService.handleError(error))
+    );
+   }
+
   getWorkdayByDate(date: string, userId: string): Observable<Workday|null> {
     const url = `${environment.firebase.firestore.baseURL}:runQuery?key=${environment.firebase.apiKey}`;
     const data = this.getSructuredQuery(date, userId);
