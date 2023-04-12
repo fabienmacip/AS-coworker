@@ -178,4 +178,27 @@ export class WorkdaysService {
       finalize(() => this.loaderService.setLoading(false))
     );
   }
+
+
+  update(workday: Workday) {
+    const url = `${environment.firebase.firestore.baseURL}/workdays/${workday.id}?key=${environment.firebase.apiKey}&currentDocument.exists=true`;
+    const data = this.getWorkdayForFirestore(workday);
+    const jwt: string = localStorage.getItem('token')!;
+    const httpOptions = {
+     headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Authorization': `Bearer ${jwt}`
+     })
+    };
+
+    return this.http.patch(url, data, httpOptions).pipe(
+     tap(_ => this.toastrService.showToastr({
+      category: 'success',
+      message: 'Votre journée de travail a été sauvegardée avec succès.'
+     })),
+     catchError(error => this.errorService.handleError(error)),
+     finalize(() => this.loaderService.setLoading(false))
+    );
+   }
+
 }
