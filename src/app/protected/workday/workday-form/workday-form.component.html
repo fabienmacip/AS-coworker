@@ -1,5 +1,5 @@
 <form [formGroup]="workdayForm" >
-  <al-workday-form-date [dueDate]="dueDate"></al-workday-form-date>
+  <al-workday-form-date (dateSelected)="onDateSelected($event)" [dueDate]="dueDate"></al-workday-form-date>
 
   <al-workday-form-tasks
     [workdayForm]="workdayForm"
@@ -21,4 +21,4 @@
  </form>
 
  <!-- Pour déboggage -->
- {{ workdayForm.value | json }}
+ <!-- {{ workdayForm.value | json }} -->
