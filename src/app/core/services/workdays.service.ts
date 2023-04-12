@@ -3,14 +3,20 @@ import { Injectable } from '@angular/core';
 import { Task } from 'src/app/shared/models/task';
 import { Workday } from 'src/app/shared/models/workday';
 import { environment } from 'src/environments/environment';
-
+import { ToastrService } from './toastr.service';
+import { ErrorService } from './error.service';
+import { LoaderService } from './loader.service';
+import { tap, catchError, finalize } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
 export class WorkdaysService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private toastrService: ToastrService,
+    private errorService: ErrorService,
+    private loaderService: LoaderService
   ) { }
 
   private getTaskForFirestore(task: Task): any {
@@ -68,6 +74,15 @@ export class WorkdaysService {
       })
     };
 
-    return this.http.post(url, data, httpOptions);
+    this.loaderService.setLoading(true);
+
+    return this.http.post(url, data, httpOptions).pipe(
+      tap(_ => this.toastrService.showToastr({
+        category: 'success',
+        message: 'Votre journée de travail a été enregistrée avec succès.'
+      })),
+      catchError(error => this.errorService.handleError(error)),
+      finalize(() => this.loaderService.setLoading(false))
+    );
   }
 }
