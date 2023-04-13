@@ -127,7 +127,7 @@ export class WorkdaysService {
       id: workdayId,
       userId: fields.userId.stringValue,
       notes: fields.notes.stringValue,
-      displayDate: fields.displayDate.stringValue,
+      displayDate: fields.displayDate?.stringValue,
       dueDate: fields.dueDate.integerValue,
       tasks: tasks
     });
@@ -222,7 +222,7 @@ export class WorkdaysService {
     return this.http.post(url, data, httpOptions).pipe(
       tap(_ => this.toastrService.showToastr({
         category: 'success',
-        message: 'Votre journée de travail a été enregistrée avec succès.'
+        message: 'Votre journée de travail a été enregistrée avec succès.',
       })),
       catchError(error => this.errorService.handleError(error)),
       finalize(() => this.loaderService.setLoading(false))
@@ -244,7 +244,7 @@ export class WorkdaysService {
     return this.http.patch(url, data, httpOptions).pipe(
      tap(_ => this.toastrService.showToastr({
       category: 'success',
-      message: 'Votre journée de travail a été sauvegardée avec succès.'
+      message: 'Votre journée de travail a été sauvegardée avec succès.',
      })),
      catchError(error => this.errorService.handleError(error)),
      finalize(() => this.loaderService.setLoading(false))
@@ -264,7 +264,7 @@ export class WorkdaysService {
     return this.http.delete(url, httpOptions).pipe(
      tap(_ => this.toastrService.showToastr({
       category: 'success',
-      message: 'Votre journée de travail a été supprimé avec succès.'
+      message: 'Votre journée de travail a été supprimée avec succès.'
      })),
      catchError(error => this.errorService.handleError(error)),
      finalize(() => this.loaderService.setLoading(false))

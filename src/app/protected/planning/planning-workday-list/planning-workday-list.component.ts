@@ -13,6 +13,7 @@ import { Workday } from 'src/app/shared/models/workday';
 export class PlanningWorkdayListComponent implements OnInit {
 
   workdays: Workday[];
+  /* private workdays: Observable<Workday[]|null>; */
 
 
   constructor(
@@ -20,20 +21,19 @@ export class PlanningWorkdayListComponent implements OnInit {
     private workdayService: WorkdaysService
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     const user: User|null = this.authService.currentUser;
     if(user && user.id) {
-      this.workdayService.getWorkdayByUser(user.id).
-      subscribe((workdays: Workday[]) => this.workdays = workdays);
-    }
+
+    this.workdayService.getWorkdayByUser(user.id).subscribe((workdays: Workday[]) => this.workdays = workdays);
+   }
   }
 
   onWorkdayRemoved(workday: Workday){
-    console.info(workday.dueDate);
-/*     this.workdays = this.workdays.filter(workday =>
-      !dueDate.includes(workday.dueDate)
-    );
-    this.workdays$ = of(this.workdays);
- */  }
+    this.workdayService.remove(workday)
+    .subscribe(_ => {
+      console.log(`${workday.id} has been removed from Firestore !`);
+    })
+  }
 
 }

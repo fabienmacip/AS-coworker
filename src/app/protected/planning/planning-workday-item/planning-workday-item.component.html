@@ -1,7 +1,7 @@
 <div class="card border-light mt-3 flex-fill">
   <div class="card-header">
     {{ workday.displayDate }}
-    <!-- <i class="material-icons md-grey float-end" (click)="removeWorkday(workday.displayDate)">close</i> -->
+    <i class="material-icons md-grey float-end" (click)="removeWorkday(workday)">close</i>
   </div>
   <div class="card-body" (click)="goWorkday(workday)" style="cursor: pointer;">
     <div *ngFor="let task of workday.tasks" class="mb-2">
