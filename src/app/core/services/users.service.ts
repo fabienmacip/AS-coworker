@@ -62,7 +62,6 @@ export class UsersService {
 
   const httpOptions = {
    headers: new HttpHeaders({
-    'Content-Type':  'application/json',
     'Authorization': `Bearer ${jwt}`
    })
   };
@@ -83,8 +82,7 @@ export class UsersService {
   const data = this.getDataForFirestore(user);
   const httpOptions = {
    headers: new HttpHeaders({
-    'Content-Type':  'application/json',
-    'Authorization': `Bearer ${jwt}`
+     'Authorization': `Bearer ${jwt}`
    })
   };
 
@@ -104,8 +102,7 @@ export class UsersService {
 
   const httpOptions = {
     headers: new HttpHeaders({
-     'Content-Type':  'application/json',
-     'Authorization': `Bearer ${localStorage.getItem('token')}`
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
     })
    };
 
