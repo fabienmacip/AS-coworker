@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
 
     // Connect User
     const userId: string = localStorage.getItem('userId')!;
-    this.usersService.get(userId, token).subscribe(user => {
+    this.usersService.get(userId).subscribe(user => {
       if(!user) {
         return;
       }

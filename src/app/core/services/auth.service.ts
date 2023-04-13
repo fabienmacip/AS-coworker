@@ -58,7 +58,7 @@ export class AuthService {
         const userId: string = data.localId;
         const jwt: string = data.idToken;
         this.saveAuthData(userId, jwt);
-        return this.usersService.get(userId, jwt);
+        return this.usersService.get(userId);
       }),
       tap(user => this.user.next(user)),
       tap(_ => this.logoutTimer(3600)),
@@ -99,7 +99,7 @@ export class AuthService {
           name: name
         });
         this.saveAuthData(data.localId, jwt);
-        return this.usersService.save(user, jwt);
+        return this.usersService.save(user);
       }),
       tap(user => this.user.next(user)),
       tap(_ => this.logoutTimer(3600)),
