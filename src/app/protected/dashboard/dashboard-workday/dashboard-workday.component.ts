@@ -23,6 +23,7 @@ export class DashboardWorkdayComponent implements OnInit {
   completePomodoro$: Subject<string>;
   currentProgress: number;
   maxProgress: number;
+
   pomodoro$: Observable<number>;
 
   currentTask: Task|undefined;
@@ -59,7 +60,7 @@ export class DashboardWorkdayComponent implements OnInit {
 
     this.pomodoro$.subscribe(currentProgress => {
       this.currentProgress = currentProgress;
-      console.log(currentProgress+"/"+this.maxProgress);
+      //console.log(currentProgress+"/"+this.maxProgress);
       if(currentProgress === this.maxProgress) {
         of(0).pipe(delay(500)).subscribe(_ => this.completePomodoro());
       }
